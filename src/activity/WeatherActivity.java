@@ -1,6 +1,7 @@
 package activity;
 
 
+import service.AutoUpdateService;
 import util.HttpCallbackListener;
 import util.HttpUtil;
 import util.Utility;
@@ -84,7 +85,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		case R.id.refresh_weather:
 			publicText.setText("Í¬²½ÖÐ...");
 			SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(this);
-			String weatherCode=prefs.getString("weatherCode", "");
+			String weatherCode=prefs.getString("weather_code", "");
 			if(!TextUtils.isEmpty(weatherCode)){
 				 queryWeatherInfo(weatherCode);
 			}
@@ -176,5 +177,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		currentDateText.setText(prefs.getString("current_data", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		Intent i=new Intent(this,AutoUpdateService.class);
+		startService(i);
 	}
 }
